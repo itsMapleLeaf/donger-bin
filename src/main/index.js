@@ -1,47 +1,60 @@
-import { app, BrowserWindow } from 'electron'
+import { app, BrowserWindow, Tray } from 'electron'
+import * as fs from 'fs'
+import { resolve } from 'path'
 
 /**
  * Set `__static` path to static files in production
  * https://simulatedgreg.gitbooks.io/electron-vue/content/en/using-static-assets.html
  */
 if (process.env.NODE_ENV !== 'development') {
-  global.__static = require('path').join(__dirname, '/static').replace(/\\/g, '\\\\')
+  global.__static = require('path')
+    .join(__dirname, '/static')
+    .replace(/\\/g, '\\\\')
 }
 
+/** @type {BrowserWindow} */
 let mainWindow
-const winURL = process.env.NODE_ENV === 'development'
-  ? `http://localhost:9080`
-  : `file://${__dirname}/index.html`
 
-function createWindow () {
-  /**
-   * Initial window options
-   */
+/** @type {Tray} */
+let tray
+
+const winURL =
+  process.env.NODE_ENV === 'development'
+    ? `http://localhost:9080`
+    : `file://${__dirname}/index.html`
+
+app.on('ready', () => {
+  const windowWidth = 600
+  const windowHeight = 600
+  const {workArea} = require('electron').screen.getPrimaryDisplay()
+
   mainWindow = new BrowserWindow({
-    height: 563,
-    useContentSize: true,
-    width: 1000
+    show: false,
+    frame: false,
+    width: windowWidth,
+    height: windowHeight,
+    x: workArea.width - windowWidth - 10,
+    y: workArea.height - windowHeight - 10,
+    alwaysOnTop: true,
+    resizable: false
   })
 
   mainWindow.loadURL(winURL)
 
-  mainWindow.on('closed', () => {
-    mainWindow = null
+  mainWindow.on('ready-to-show', () => {
+    tray = new Tray(resolve(__static, 'icon.png'))
+
+    function toggleWindow() {
+      if (mainWindow.isVisible()) {
+        mainWindow.hide()
+      } else {
+        mainWindow.show()
+      }
+    }
+
+    tray.on('click', toggleWindow)
+    tray.on('double-click', toggleWindow)
   })
-}
-
-app.on('ready', createWindow)
-
-app.on('window-all-closed', () => {
-  if (process.platform !== 'darwin') {
-    app.quit()
-  }
-})
-
-app.on('activate', () => {
-  if (mainWindow === null) {
-    createWindow()
-  }
 })
 
 /**
