@@ -4,7 +4,8 @@
     "module": "esnext",
     "moduleResolution": "node",
     "allowSyntheticDefaultImports": true,
-    "allowJs": true
+    "allowJs": true,
+    "noUnusedLocals": true
   },
   "include": [
     "./src/**/*"
