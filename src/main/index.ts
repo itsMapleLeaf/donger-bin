@@ -1,8 +1,5 @@
 // @ts-check
-import { app, ipcMain as ipc, clipboard } from 'electron'
-import { resolve } from 'path'
-import { createWindow, hideWindow } from './window'
-import { createTray } from './tray'
+import { init } from './app'
 
 /**
  * Set `__static` path to static files in production
@@ -14,22 +11,7 @@ if (process.env.NODE_ENV !== 'development') {
     .replace(/\\/g, '\\\\')
 }
 
-const winURL =
-  process.env.NODE_ENV === 'development'
-    ? `http://localhost:9080`
-    : `file://${__dirname}/index.html`
-
-app.on('ready', () => {
-  createWindow(winURL).on('ready-to-show', () => {
-    createTray()
-  })
-
-  ipc.on('donger-activate', (_, data) => {
-    const dongerInfo = JSON.parse(data)
-    clipboard.writeText(dongerInfo.body)
-    hideWindow()
-  })
-})
+init()
 
 /**
  * Auto Updater
