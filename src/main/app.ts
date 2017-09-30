@@ -1,6 +1,7 @@
 import { app, ipcMain, clipboard } from 'electron'
 import { createWindow, hideWindow } from './window'
 import { createTray } from './tray'
+import { Donger } from '../donger'
 
 export function init() {
   const winURL =
@@ -13,8 +14,8 @@ export function init() {
       createTray()
     })
 
-    ipcMain.on('donger-activate', (_, data) => {
-      const dongerInfo = JSON.parse(data)
+    ipcMain.on('donger-activate', (event: Event, data: string) => {
+      const dongerInfo = JSON.parse(data) as Donger
       clipboard.writeText(dongerInfo.body)
       hideWindow()
     })

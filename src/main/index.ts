@@ -1,6 +1,8 @@
 // @ts-check
 import { init } from './app'
 
+declare const global: { [key: string]: any }
+
 /**
  * Set `__static` path to static files in production
  * https://simulatedgreg.gitbooks.io/electron-vue/content/en/using-static-assets.html

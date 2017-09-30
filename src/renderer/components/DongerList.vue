@@ -9,11 +9,7 @@
 <script lang="ts">
 import Vue from 'vue'
 import { ipcRenderer } from 'electron'
-
-type Donger = {
-  name: string
-  body: string
-}
+import { Donger } from '../../donger'
 
 type DongerList = {
   dongers: Donger[]
