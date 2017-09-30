@@ -5,8 +5,8 @@ const meta = require('../package.json')
 
 const defaults = {
   dongers: [
-    new Donger('shrug (markdown)', String.raw`¯\\\_(ツ)\_/¯`),
     new Donger('shrug', String.raw`¯\_(ツ)_/¯`),
+    new Donger('shrug (markdown)', String.raw`¯\\\_(ツ)\_/¯`),
     new Donger('flower', `(◕‿◕✿)`),
     new Donger('peace', `(⌣‿⌣✿)`),
     new Donger('give', `༼ つ ◕_◕ ༽つ`),
