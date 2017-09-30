@@ -1,12 +1,14 @@
 <template>
   <section class="donger-list">
-    <a href="#" class="donger-list-item" v-for="(donger, i) in dongers" :key="i">
+    <a href="#" class="donger-list-item" v-for="(donger, i) in dongers" :key="i" @mousedown="handleDongerActivated(donger)">
       {{ donger.body }}
     </a>
   </section>
 </template>
 
 <script>
+import * as electron from 'electron'
+
 export default {
   data() {
     return {
@@ -22,6 +24,11 @@ export default {
         { name: 'stars', body: `(ﾉ◕ヮ◕)ﾉ*:･ﾟ✧` },
         { name: 'shige', body: `(´・◡ ・｀)` },
       ]
+    }
+  },
+  methods: {
+    handleDongerActivated(donger) {
+      electron.ipcRenderer.send('donger-activate', JSON.stringify(donger))
     }
   }
 }

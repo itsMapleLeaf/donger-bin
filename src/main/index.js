@@ -1,4 +1,4 @@
-import { app, BrowserWindow, Tray } from 'electron'
+import { app, BrowserWindow, Tray, ipcMain as ipc, clipboard } from 'electron'
 import * as fs from 'fs'
 import { resolve } from 'path'
 
@@ -54,6 +54,12 @@ app.on('ready', () => {
 
     tray.on('click', toggleWindow)
     tray.on('double-click', toggleWindow)
+  })
+
+  ipc.on('donger-activate', (_, data) => {
+    const dongerInfo = JSON.parse(data)
+    clipboard.writeText(dongerInfo.body)
+    mainWindow.hide()
   })
 })
 
