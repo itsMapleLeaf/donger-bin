@@ -6,8 +6,19 @@
   </section>
 </template>
 
-<script>
-import * as electron from 'electron'
+<script lang="ts">
+import Vue from 'vue'
+import { ipcRenderer } from 'electron'
+
+type Donger = {
+  name: string
+  body: string
+}
+
+type DongerList = {
+  dongers: Donger[]
+  handleDongerActivated: (donger: Donger) => void
+}
 
 export default {
   data() {
@@ -23,15 +34,15 @@ export default {
         { name: 'dance', body: `ᕕ( ᐛ )ᕗ` },
         { name: 'stars', body: `(ﾉ◕ヮ◕)ﾉ*:･ﾟ✧` },
         { name: 'shige', body: `(´・◡ ・｀)` },
-      ]
+      ] as Donger[]
     }
   },
   methods: {
-    handleDongerActivated(donger) {
-      electron.ipcRenderer.send('donger-activate', JSON.stringify(donger))
+    handleDongerActivated(donger: Donger) {
+      ipcRenderer.send('donger-activate', JSON.stringify(donger))
     }
   }
-}
+} as Vue.ComponentOptions<Vue & DongerList>
 </script>
 
 <style scoped>
