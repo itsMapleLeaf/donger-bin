@@ -2,7 +2,7 @@
 import { app, BrowserWindow, Tray, ipcMain as ipc, clipboard } from 'electron'
 import * as fs from 'fs'
 import { resolve } from 'path'
-import { createWindow } from './window'
+import { createWindow, hideWindow } from './window'
 import { createTray } from './tray'
 
 /**
@@ -24,20 +24,14 @@ const winURL =
     : `file://${__dirname}/index.html`
 
 app.on('ready', () => {
-  const windowWidth = 600
-  const windowHeight = 600
-  const { workArea } = require('electron').screen.getPrimaryDisplay()
-
-  const win = createWindow(winURL)
-
-  win.on('ready-to-show', () => {
+  createWindow(winURL).on('ready-to-show', () => {
     createTray()
   })
 
   ipc.on('donger-activate', (_, data) => {
     const dongerInfo = JSON.parse(data)
     clipboard.writeText(dongerInfo.body)
-    win.hide()
+    hideWindow()
   })
 })
 
