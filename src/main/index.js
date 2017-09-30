@@ -1,6 +1,9 @@
+// @ts-check
 import { app, BrowserWindow, Tray, ipcMain as ipc, clipboard } from 'electron'
 import * as fs from 'fs'
 import { resolve } from 'path'
+import { createWindow } from './window'
+import { createTray } from './tray'
 
 /**
  * Set `__static` path to static files in production
@@ -11,9 +14,6 @@ if (process.env.NODE_ENV !== 'development') {
     .join(__dirname, '/static')
     .replace(/\\/g, '\\\\')
 }
-
-/** @type {BrowserWindow} */
-let mainWindow
 
 /** @type {Tray} */
 let tray
@@ -26,40 +26,18 @@ const winURL =
 app.on('ready', () => {
   const windowWidth = 600
   const windowHeight = 600
-  const {workArea} = require('electron').screen.getPrimaryDisplay()
+  const { workArea } = require('electron').screen.getPrimaryDisplay()
 
-  mainWindow = new BrowserWindow({
-    show: false,
-    frame: false,
-    width: windowWidth,
-    height: windowHeight,
-    x: workArea.width - windowWidth - 10,
-    y: workArea.height - windowHeight - 10,
-    alwaysOnTop: true,
-    resizable: false
-  })
+  const win = createWindow(winURL)
 
-  mainWindow.loadURL(winURL)
-
-  mainWindow.on('ready-to-show', () => {
-    tray = new Tray(resolve(__static, 'icon.png'))
-
-    function toggleWindow() {
-      if (mainWindow.isVisible()) {
-        mainWindow.hide()
-      } else {
-        mainWindow.show()
-      }
-    }
-
-    tray.on('click', toggleWindow)
-    tray.on('double-click', toggleWindow)
+  win.on('ready-to-show', () => {
+    createTray()
   })
 
   ipc.on('donger-activate', (_, data) => {
     const dongerInfo = JSON.parse(data)
     clipboard.writeText(dongerInfo.body)
-    mainWindow.hide()
+    win.hide()
   })
 })
 
