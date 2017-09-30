@@ -1,6 +1,5 @@
 // @ts-check
-import { app, BrowserWindow, Tray, ipcMain as ipc, clipboard } from 'electron'
-import * as fs from 'fs'
+import { app, ipcMain as ipc, clipboard } from 'electron'
 import { resolve } from 'path'
 import { createWindow, hideWindow } from './window'
 import { createTray } from './tray'
@@ -14,9 +13,6 @@ if (process.env.NODE_ENV !== 'development') {
     .join(__dirname, '/static')
     .replace(/\\/g, '\\\\')
 }
-
-/** @type {Tray} */
-let tray
 
 const winURL =
   process.env.NODE_ENV === 'development'
