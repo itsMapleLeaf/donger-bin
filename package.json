@@ -51,9 +51,11 @@
     }
   },
   "dependencies": {
+    "configstore": "^3.1.1",
     "vue": "^2.3.3"
   },
   "devDependencies": {
+    "@types/configstore": "^2.1.1",
     "babel-core": "^6.25.0",
     "babel-loader": "^7.1.1",
     "babel-plugin-transform-runtime": "^6.23.0",

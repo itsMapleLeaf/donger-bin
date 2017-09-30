@@ -10,6 +10,7 @@
 import Vue from 'vue'
 import { ipcRenderer } from 'electron'
 import { Donger } from '../../donger'
+import { getDongers } from '../../configStore'
 
 type DongerList = {
   dongers: Donger[]
@@ -19,18 +20,7 @@ type DongerList = {
 export default {
   data() {
     return {
-      dongers: [
-        { name: 'shrug', body: String.raw`¯\_(ツ)_/¯` },
-        { name: 'shrug (markdown)', body: String.raw`¯\\\_(ツ)\_/¯` },
-        { name: 'flower', body: `(◕‿◕✿)` },
-        { name: 'peace', body: `(⌣‿⌣✿)` },
-        { name: 'give', body: `༼ つ ◕_◕ ༽つ` },
-        { name: 'OG', body: `ヽ༼ຈل͜ຈ༽ﾉ` },
-        { name: 'lenny', body: `( ͡° ͜ʖ ͡°)` },
-        { name: 'dance', body: `ᕕ( ᐛ )ᕗ` },
-        { name: 'stars', body: `(ﾉ◕ヮ◕)ﾉ*:･ﾟ✧` },
-        { name: 'shige', body: `(´・◡ ・｀)` },
-      ] as Donger[]
+      dongers: getDongers()
     }
   },
   methods: {
