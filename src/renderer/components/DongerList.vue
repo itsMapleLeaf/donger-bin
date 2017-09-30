@@ -1,6 +1,6 @@
 <template>
   <section class="donger-list">
-    <a href="#" class="donger-list-item" v-for="(donger, i) in dongers" :key="i" @mousedown="handleDongerActivated(donger)">
+    <a href="#" class="donger-list-item" v-for="(donger, i) in dongers" :key="i" @click="handleDongerActivated(donger)">
       {{ donger.body }}
     </a>
   </section>
