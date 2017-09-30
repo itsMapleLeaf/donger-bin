@@ -31,3 +31,12 @@ export function addDonger(donger: Donger) {
 export function removeDonger(id: string) {
   store.set('dongers', getDongers().filter(d => d.id !== id))
 }
+
+export function updateLastUsed(id: string, date: number) {
+  const dongerList = getDongers()
+  const donger = dongerList.find(d => d.id === id)
+  if (donger) {
+    donger.dateLastUsed = date
+    store.set('dongers', dongerList)
+  }
+}
