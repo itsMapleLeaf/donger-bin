@@ -22,6 +22,8 @@ export function createWindow(winURL: string) {
 
   mainWindow.loadURL(winURL)
 
+  mainWindow.on('blur', hideWindow)
+
   return mainWindow
 }
 
