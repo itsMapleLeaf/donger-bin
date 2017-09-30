@@ -18,7 +18,7 @@ let mainConfig = {
       {
         test: /\.(js|ts)x?$/,
         use: 'ts-loader',
-        include: [path.resolve(__dirname, '../src/main')],
+        include: [path.resolve(__dirname, '../src')],
       },
       {
         test: /\.node$/,

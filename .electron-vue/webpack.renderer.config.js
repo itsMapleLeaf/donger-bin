@@ -44,7 +44,7 @@ let rendererConfig = {
       {
         test: /\.(js|ts)x?$/,
         loader: 'ts-loader',
-        include: [path.resolve(__dirname, '../src/renderer')],
+        include: [path.resolve(__dirname, '../src')],
         options: {
           appendTsSuffixTo: [/\.vue$/]
         }
