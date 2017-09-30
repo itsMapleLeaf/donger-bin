@@ -1,16 +1,12 @@
 // @ts-check
 import * as electron from 'electron'
 
-/** @type {electron.BrowserWindow} */
-let mainWindow
+let mainWindow: electron.BrowserWindow
 
 export const windowWidth = 600
 export const windowHeight = 600
 
-/**
- * @param {string} winURL
- */
-export function createWindow(winURL) {
+export function createWindow(winURL: string) {
   const { workArea } = require('electron').screen.getPrimaryDisplay()
 
   mainWindow = new electron.BrowserWindow({

@@ -3,8 +3,9 @@ import { app, Tray, Menu } from 'electron'
 import { resolve } from 'path'
 import { toggleWindow, showWindow } from './window'
 
-/** @type {Tray} */
-let tray
+declare var __static: string
+
+let tray: Tray
 
 export function createTray() {
   const menu = Menu.buildFromTemplate([
