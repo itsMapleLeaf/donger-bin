@@ -1,4 +1,3 @@
-export type Donger = {
-  name: string
-  body: string
+export class Donger {
+  constructor(public name: string, public body: string) {}
 }
