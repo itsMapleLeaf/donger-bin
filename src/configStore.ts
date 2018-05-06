@@ -15,6 +15,7 @@ const defaults = {
     new Donger('dance', `ᕕ( ᐛ )ᕗ`),
     new Donger('stars', `(ﾉ◕ヮ◕)ﾉ*:･ﾟ✧`),
     new Donger('shige', `(´・◡ ・｀)`),
+    new Donger('lenny-drugs', '( ͡☉ ͜ʖ ͡☉)'),
   ],
 }
 
