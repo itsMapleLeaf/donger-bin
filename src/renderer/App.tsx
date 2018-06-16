@@ -7,8 +7,6 @@ import { Donger } from "./donger/Donger"
 import { DongerForm, DongerFormValues } from "./donger/DongerForm"
 import { openDongerContextMenu } from "./donger/openDongerContextMenu"
 
-const { BrowserWindow } = remote.require("electron") as typeof Electron
-
 const headerMessage = "Choose your donger wisely ( ͡° ͜ʖ ͡°)"
 
 const compareLastUsed = (a: DongerData, b: DongerData) =>
@@ -100,14 +98,8 @@ export class App extends React.Component<{}, AppState> {
 
   copyDonger = (donger: DongerData) => {
     this.updateLastUsed(donger)
-
     clipboard.writeText(donger.body)
-
-    setTimeout(() => {
-      // TODO: use remote.getCurrentWindow() instead
-      const [window] = BrowserWindow.getAllWindows()
-      window.hide()
-    })
+    remote.getCurrentWindow().hide()
   }
 }
 
