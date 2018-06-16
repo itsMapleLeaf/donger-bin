@@ -1,62 +1,11 @@
 import React from "react"
 import styled from "react-emotion"
 import { DongerData } from "../DongerData"
-import { Donger } from "./Donger"
-import { DongerForm, DongerFormValues } from "./DongerForm"
-import { openDongerContextMenu } from "./openDongerContextMenu"
+import { Donger } from "./donger/Donger"
+import { DongerForm, DongerFormValues } from "./donger/DongerForm"
+import { openDongerContextMenu } from "./donger/openDongerContextMenu"
 
 const headerMessage = "Choose your donger wisely ( ͡° ͜ʖ ͡°)"
-
-const AppMain = styled("main")`
-  position: fixed;
-  left: 0;
-  right: 0;
-  top: 0;
-  bottom: 0;
-
-  display: flex;
-  flex-direction: column;
-
-  > :nth-child(2) {
-    flex-grow: 1;
-    overflow: auto;
-  }
-
-  > :last-child {
-    flex-shrink: 0;
-  }
-`
-
-const AppHeader = styled("header")`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  opacity: 0.6;
-  padding: 1rem;
-`
-
-const DongerList = styled("section")`
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-
-  padding: 0.5rem;
-  > * {
-    margin: 0.5rem;
-  }
-
-  overflow-x: hidden;
-`
-
-const AppActionSection = styled("section")`
-  padding: 0.5rem;
-  display: flex;
-  justify-content: center;
-
-  > :not(:last-child) {
-    margin-right: 0.5rem;
-  }
-`
 
 interface AppState {
   dongers: DongerData[]
@@ -81,17 +30,17 @@ export class App extends React.Component<{}, AppState> {
 
   render() {
     return (
-      <AppMain>
-        <AppHeader>
+      <Main>
+        <Header>
           <h1>{headerMessage}</h1>
-        </AppHeader>
+        </Header>
 
         <DongerList>{this.state.dongers.map(this.renderDonger)}</DongerList>
 
-        <AppActionSection>
+        <Actions>
           <DongerForm onSubmit={this.handleDongerSubmit} />
-        </AppActionSection>
-      </AppMain>
+        </Actions>
+      </Main>
     )
   }
 
@@ -128,3 +77,54 @@ export class App extends React.Component<{}, AppState> {
     }))
   }
 }
+
+const Main = styled("main")`
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+
+  display: flex;
+  flex-direction: column;
+
+  > :nth-child(2) {
+    flex-grow: 1;
+    overflow: auto;
+  }
+
+  > :last-child {
+    flex-shrink: 0;
+  }
+`
+
+const Header = styled("header")`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0.6;
+  padding: 1rem;
+`
+
+const DongerList = styled("section")`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+
+  padding: 0.5rem;
+  > * {
+    margin: 0.5rem;
+  }
+
+  overflow-x: hidden;
+`
+
+const Actions = styled("section")`
+  padding: 0.5rem;
+  display: flex;
+  justify-content: center;
+
+  > :not(:last-child) {
+    margin-right: 0.5rem;
+  }
+`

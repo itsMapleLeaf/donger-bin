@@ -1,7 +1,7 @@
 import { Formik, FormikProps } from "formik"
 import React from "react"
-import { Button } from "./ui/Button"
-import { TextInput } from "./ui/TextInput"
+import { Button } from "../ui/Button"
+import { TextInput } from "../ui/TextInput"
 
 export interface DongerFormValues {
   body: string
