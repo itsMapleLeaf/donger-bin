@@ -12,7 +12,7 @@ function getAssetPath(filename: string) {
 
 function createWindow() {
   const windowWidth = 600
-  const windowHeight = 400
+  const windowHeight = 600
   const displayBounds = screen.getPrimaryDisplay().workArea
 
   const win = new BrowserWindow({
