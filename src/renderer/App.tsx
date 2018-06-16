@@ -2,9 +2,8 @@ import React from "react"
 import styled from "react-emotion"
 import { DongerData } from "../DongerData"
 import { Donger } from "./Donger"
+import { DongerForm, DongerFormValues } from "./DongerForm"
 import { openDongerContextMenu } from "./openDongerContextMenu"
-import { Button } from "./ui/Button"
-import { TextInput } from "./ui/TextInput"
 
 const headerMessage = "Choose your donger wisely ( ͡° ͜ʖ ͡°)"
 
@@ -21,6 +20,10 @@ const AppMain = styled("main")`
   > :nth-child(2) {
     flex-grow: 1;
     overflow: auto;
+  }
+
+  > :last-child {
+    flex-shrink: 0;
   }
 `
 
@@ -53,7 +56,27 @@ const AppActionSection = styled("section")`
   }
 `
 
-export class App extends React.Component {
+interface AppState {
+  dongers: DongerData[]
+}
+
+export class App extends React.Component<{}, AppState> {
+  state: AppState = {
+    dongers: [
+      { id: "shrug", body: String.raw`¯\_(ツ)_/¯` },
+      { id: "shrug (markdown)", body: String.raw`¯\\\_(ツ)\_/¯` },
+      { id: "flower", body: `(◕‿◕✿)` },
+      { id: "peace", body: `(⌣‿⌣✿)` },
+      { id: "give", body: `༼ つ ◕_◕ ༽つ` },
+      { id: "OG", body: `ヽ༼ຈل͜ຈ༽ﾉ` },
+      { id: "lenny", body: `( ͡° ͜ʖ ͡°)` },
+      { id: "lenny (drugs)", body: "( ͡☉ ͜ʖ ͡☉)" },
+      { id: "dance", body: `ᕕ( ᐛ )ᕗ` },
+      { id: "stars", body: `(ﾉ◕ヮ◕)ﾉ*:･ﾟ✧` },
+      { id: "shige", body: `(´・◡ ・｀)` },
+    ],
+  }
+
   render() {
     return (
       <AppMain>
@@ -61,49 +84,45 @@ export class App extends React.Component {
           <h1>{headerMessage}</h1>
         </AppHeader>
 
-        <DongerList>
-          <Donger
-            donger={{ id: "foobar", body: "(´・◡ ・｀)" }}
-            onContextMenu={this.openDongerContextMenu}
-          />
-          <Donger
-            donger={{ id: "foobar", body: "(´・◡ ・｀)" }}
-            onContextMenu={this.openDongerContextMenu}
-          />
-          <Donger
-            donger={{ id: "foobar", body: "(´・◡ ・｀)" }}
-            onContextMenu={this.openDongerContextMenu}
-          />
-          <Donger
-            donger={{ id: "foobar", body: "(´・◡ ・｀)" }}
-            onContextMenu={this.openDongerContextMenu}
-          />
-          <Donger
-            donger={{ id: "foobar", body: "(´・◡ ・｀)" }}
-            onContextMenu={this.openDongerContextMenu}
-          />
-          <Donger
-            donger={{ id: "foobar", body: "(´・◡ ・｀)" }}
-            onContextMenu={this.openDongerContextMenu}
-          />
-          <Donger
-            donger={{ id: "foobar", body: "(´・◡ ・｀)" }}
-            onContextMenu={this.openDongerContextMenu}
-          />
-        </DongerList>
+        <DongerList>{this.state.dongers.map(this.renderDonger)}</DongerList>
 
         <AppActionSection>
-          <TextInput
-            style={{ width: "270px" }}
-            placeholder="Add new donger? (´・◡ ・｀)"
-          />
-          <Button>Add</Button>
+          <DongerForm onSubmit={this.handleDongerSubmit} />
         </AppActionSection>
       </AppMain>
     )
   }
 
+  handleDongerSubmit = ({ body }: DongerFormValues) => {
+    this.addDonger({
+      id: String(Math.random()),
+      body,
+    })
+  }
+
   openDongerContextMenu = (donger: DongerData) => {
-    openDongerContextMenu()
+    openDongerContextMenu({
+      onDelete: () => this.removeDonger(donger),
+    })
+  }
+
+  renderDonger = (donger: DongerData) => (
+    <Donger
+      key={donger.id}
+      donger={donger}
+      onContextMenu={this.openDongerContextMenu}
+    />
+  )
+
+  addDonger = (newDonger: DongerData) => {
+    this.setState((state) => ({
+      dongers: [newDonger, ...state.dongers],
+    }))
+  }
+
+  removeDonger = (donger: DongerData) => {
+    this.setState((state) => ({
+      dongers: state.dongers.filter((other) => other.id !== donger.id),
+    }))
   }
 }
