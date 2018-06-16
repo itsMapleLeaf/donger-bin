@@ -30,7 +30,7 @@ const Anchor = styled("a")`
   justify-content: center;
   align-items: center;
 
-  padding: 1.5rem;
+  height: 5rem;
   width: 12rem;
 
   background-color: ${darken(0.05, themeColor)};
