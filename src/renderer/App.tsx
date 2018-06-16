@@ -28,6 +28,10 @@ export class App extends React.Component<{}, AppState> {
     this.setState({ dongers })
   }
 
+  componentDidUpdate() {
+    this.saveDongers()
+  }
+
   render() {
     const dongerElements = this.state.dongers
       .slice()
@@ -71,35 +75,25 @@ export class App extends React.Component<{}, AppState> {
   )
 
   addDonger = (newDonger: DongerData) => {
-    this.setState(
-      (state) => ({
-        dongers: [newDonger, ...state.dongers],
-      }),
-      this.saveDongers,
-    )
+    this.setState((state) => ({
+      dongers: [newDonger, ...state.dongers],
+    }))
   }
 
   removeDonger = (donger: DongerData) => {
-    this.setState(
-      (state) => ({
-        dongers: state.dongers.filter((other) => other.id !== donger.id),
-      }),
-      this.saveDongers,
-    )
+    this.setState((state) => ({
+      dongers: state.dongers.filter((other) => other.id !== donger.id),
+    }))
   }
 
   updateLastUsed = ({ id }: DongerData) => {
-    this.setState(
-      (state) => ({
-        dongers: state.dongers.map((donger) => {
-          return donger.id === id ? { ...donger, lastUsed: Date.now() } : donger
-        }),
+    this.setState((state) => ({
+      dongers: state.dongers.map((donger) => {
+        return donger.id === id ? { ...donger, lastUsed: Date.now() } : donger
       }),
-      this.saveDongers,
-    )
+    }))
   }
 
-  // TODO: do this on componentDidUpdate
   saveDongers = () => {
     dongerStorage.save({ dongers: this.state.dongers })
   }
