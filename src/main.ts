@@ -1,4 +1,4 @@
-import { app, BrowserWindow, Menu, screen, Tray } from "electron"
+import { app, BrowserWindow, Menu, nativeImage, screen, Tray } from "electron"
 import { watch } from "fs"
 import { resolve } from "path"
 
@@ -24,6 +24,7 @@ function createWindow() {
   })
 
   win.loadFile(getAssetPath("index.html"))
+  win.setIcon(nativeImage.createFromPath(getAssetPath("icon.png")))
 
   if (!isDevMode) {
     win.on("blur", () => {
