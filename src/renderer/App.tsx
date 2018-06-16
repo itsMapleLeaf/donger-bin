@@ -2,6 +2,7 @@ import { clipboard, remote } from "electron"
 import React from "react"
 import styled from "react-emotion"
 import { DongerData } from "../DongerData"
+import { dongerStorage } from "../dongerStorage"
 import { Donger } from "./donger/Donger"
 import { DongerForm, DongerFormValues } from "./donger/DongerForm"
 import { openDongerContextMenu } from "./donger/openDongerContextMenu"
@@ -16,19 +17,12 @@ interface AppState {
 
 export class App extends React.Component<{}, AppState> {
   state: AppState = {
-    dongers: [
-      { id: "shrug", body: String.raw`¯\_(ツ)_/¯` },
-      { id: "shrug (markdown)", body: String.raw`¯\\\_(ツ)\_/¯` },
-      { id: "flower", body: `(◕‿◕✿)` },
-      { id: "peace", body: `(⌣‿⌣✿)` },
-      { id: "give", body: `༼ つ ◕_◕ ༽つ` },
-      { id: "OG", body: `ヽ༼ຈل͜ຈ༽ﾉ` },
-      { id: "lenny", body: `( ͡° ͜ʖ ͡°)` },
-      { id: "lenny (drugs)", body: "( ͡☉ ͜ʖ ͡☉)" },
-      { id: "dance", body: `ᕕ( ᐛ )ᕗ` },
-      { id: "stars", body: `(ﾉ◕ヮ◕)ﾉ*:･ﾟ✧` },
-      { id: "shige", body: `(´・◡ ・｀)` },
-    ],
+    dongers: [],
+  }
+
+  async componentDidMount() {
+    const { dongers } = await dongerStorage.load()
+    this.setState({ dongers })
   }
 
   render() {
@@ -70,15 +64,25 @@ export class App extends React.Component<{}, AppState> {
   )
 
   addDonger = (newDonger: DongerData) => {
-    this.setState((state) => ({
-      dongers: [newDonger, ...state.dongers],
-    }))
+    this.setState(
+      (state) => ({
+        dongers: [newDonger, ...state.dongers],
+      }),
+      this.saveDongers,
+    )
   }
 
   removeDonger = (donger: DongerData) => {
-    this.setState((state) => ({
-      dongers: state.dongers.filter((other) => other.id !== donger.id),
-    }))
+    this.setState(
+      (state) => ({
+        dongers: state.dongers.filter((other) => other.id !== donger.id),
+      }),
+      this.saveDongers,
+    )
+  }
+
+  saveDongers = () => {
+    dongerStorage.save({ dongers: this.state.dongers })
   }
 
   copyDonger = (donger: DongerData) => {
