@@ -40,7 +40,13 @@ export class DongerForm extends React.Component<DongerFormProps> {
   )
 
   handleSubmit = (values: DongerFormValues) => {
-    this.props.onSubmit(values)
+    const body = values.body.trim()
+    if (body === "") {
+      alert("You can't have a donger without a body, stupid (´・◡ ・｀)")
+      return
+    }
+
+    this.props.onSubmit({ body })
     if (this.form) {
       this.form.setFieldValue("body", "")
     }
