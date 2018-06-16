@@ -2,6 +2,7 @@
 - when typing, focus the input (ignore tab)
 - when pasting, put the pasted content into the input
 - bundle to increase runtime speed
+- figure whether there's a pitfall to using remote.require over ipc
 
 low priority:
 
