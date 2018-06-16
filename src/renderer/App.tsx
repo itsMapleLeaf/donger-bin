@@ -1,6 +1,7 @@
 import { clipboard, remote } from "electron"
 import React from "react"
 import styled from "react-emotion"
+import { getFrequency } from "../common/array/helpers"
 import { DongerData } from "../DongerData"
 import { dongerStorage } from "../dongerStorage"
 import { Donger } from "./donger/Donger"
@@ -9,21 +10,20 @@ import { openDongerContextMenu } from "./donger/openDongerContextMenu"
 
 const headerMessage = "Choose your donger wisely ( ͡° ͜ʖ ͡°)"
 
-const compareLastUsed = (a: DongerData, b: DongerData) =>
-  b.lastUsed - a.lastUsed
-
 interface AppState {
   dongers: DongerData[]
+  lastUsed: string[]
 }
 
 export class App extends React.Component<{}, AppState> {
   state: AppState = {
     dongers: [],
+    lastUsed: [],
   }
 
   async componentDidMount() {
-    const { dongers } = await dongerStorage.load()
-    this.setState({ dongers })
+    const { dongers, lastUsed } = await dongerStorage.load()
+    this.setState({ dongers, lastUsed })
   }
 
   componentDidUpdate() {
@@ -31,9 +31,13 @@ export class App extends React.Component<{}, AppState> {
   }
 
   render() {
-    const dongerElements = this.state.dongers
+    const { dongers, lastUsed } = this.state
+
+    const dongerElements = dongers
       .slice()
-      .sort(compareLastUsed)
+      .sort((a, b) => {
+        return getFrequency(lastUsed, b.id) - getFrequency(lastUsed, a.id)
+      })
       .map(this.renderDonger)
 
     return (
@@ -85,14 +89,13 @@ export class App extends React.Component<{}, AppState> {
 
   updateLastUsed = ({ id }: DongerData) => {
     this.setState((state) => ({
-      dongers: state.dongers.map((donger) => {
-        return donger.id === id ? { ...donger, lastUsed: Date.now() } : donger
-      }),
+      lastUsed: [...state.lastUsed, id].slice(-50),
     }))
   }
 
   saveDongers = () => {
-    dongerStorage.save({ dongers: this.state.dongers })
+    const { dongers, lastUsed } = this.state
+    dongerStorage.save({ dongers, lastUsed })
   }
 
   copyDonger = (donger: DongerData) => {

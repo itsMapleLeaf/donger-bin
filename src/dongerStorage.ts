@@ -12,6 +12,7 @@ const savePath = resolve(userFolder, "donger-bin/dongers.json")
 
 interface StoredDongers {
   dongers: DongerData[]
+  lastUsed: string[]
 }
 
 const defaultStoredDongers: StoredDongers = {
@@ -28,6 +29,7 @@ const defaultStoredDongers: StoredDongers = {
     new DongerData("stars", `(ﾉ◕ヮ◕)ﾉ*:･ﾟ✧`),
     new DongerData("shige", `(´・◡ ・｀)`),
   ],
+  lastUsed: [],
 }
 
 export const dongerStorage = new Storage<StoredDongers>(
