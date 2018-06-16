@@ -108,10 +108,6 @@ const Main = styled("main")`
     flex-grow: 1;
     overflow: auto;
   }
-
-  > :last-child {
-    flex-shrink: 0;
-  }
 `
 
 const Header = styled("header")`
@@ -120,6 +116,8 @@ const Header = styled("header")`
   align-items: center;
   opacity: 0.6;
   padding: 1rem;
+
+  flex-shrink: 0;
 `
 
 const DongerList = styled("section")`
@@ -143,4 +141,6 @@ const Actions = styled("section")`
   > :not(:last-child) {
     margin-right: 0.5rem;
   }
+
+  flex-shrink: 0;
 `
