@@ -11,6 +11,9 @@ const { BrowserWindow } = remote.require("electron") as typeof Electron
 
 const headerMessage = "Choose your donger wisely ( ͡° ͜ʖ ͡°)"
 
+const compareLastUsed = (a: DongerData, b: DongerData) =>
+  b.lastUsed - a.lastUsed
+
 interface AppState {
   dongers: DongerData[]
 }
@@ -26,13 +29,18 @@ export class App extends React.Component<{}, AppState> {
   }
 
   render() {
+    const dongerElements = this.state.dongers
+      .slice()
+      .sort(compareLastUsed)
+      .map(this.renderDonger)
+
     return (
       <Main>
         <Header>
           <h1>{headerMessage}</h1>
         </Header>
 
-        <DongerList>{this.state.dongers.map(this.renderDonger)}</DongerList>
+        <DongerList>{dongerElements}</DongerList>
 
         <Actions>
           <DongerForm onSubmit={this.handleDongerSubmit} />
@@ -42,10 +50,8 @@ export class App extends React.Component<{}, AppState> {
   }
 
   handleDongerSubmit = ({ body }: DongerFormValues) => {
-    this.addDonger({
-      id: String(Math.random()),
-      body,
-    })
+    const id = String(Math.random())
+    this.addDonger(new DongerData(id, body))
   }
 
   openDongerContextMenu = async (donger: DongerData) => {
@@ -82,15 +88,32 @@ export class App extends React.Component<{}, AppState> {
     )
   }
 
+  updateLastUsed = ({ id }: DongerData) => {
+    this.setState(
+      (state) => ({
+        dongers: state.dongers.map((donger) => {
+          return donger.id === id ? { ...donger, lastUsed: Date.now() } : donger
+        }),
+      }),
+      this.saveDongers,
+    )
+  }
+
+  // TODO: do this on componentDidUpdate
   saveDongers = () => {
     dongerStorage.save({ dongers: this.state.dongers })
   }
 
   copyDonger = (donger: DongerData) => {
+    this.updateLastUsed(donger)
+
     clipboard.writeText(donger.body)
 
-    const [window] = BrowserWindow.getAllWindows()
-    window.hide()
+    setTimeout(() => {
+      // TODO: use remote.getCurrentWindow() instead
+      const [window] = BrowserWindow.getAllWindows()
+      window.hide()
+    })
   }
 }
 
