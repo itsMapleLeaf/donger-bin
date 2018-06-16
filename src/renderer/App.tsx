@@ -1,9 +1,12 @@
+import { clipboard, remote } from "electron"
 import React from "react"
 import styled from "react-emotion"
 import { DongerData } from "../DongerData"
 import { Donger } from "./donger/Donger"
 import { DongerForm, DongerFormValues } from "./donger/DongerForm"
 import { openDongerContextMenu } from "./donger/openDongerContextMenu"
+
+const { BrowserWindow } = remote.require("electron") as typeof Electron
 
 const headerMessage = "Choose your donger wisely ( ͡° ͜ʖ ͡°)"
 
@@ -61,6 +64,7 @@ export class App extends React.Component<{}, AppState> {
     <Donger
       key={donger.id}
       donger={donger}
+      onClick={this.copyDonger}
       onContextMenu={this.openDongerContextMenu}
     />
   )
@@ -75,6 +79,13 @@ export class App extends React.Component<{}, AppState> {
     this.setState((state) => ({
       dongers: state.dongers.filter((other) => other.id !== donger.id),
     }))
+  }
+
+  copyDonger = (donger: DongerData) => {
+    clipboard.writeText(donger.body)
+
+    const [window] = BrowserWindow.getAllWindows()
+    window.hide()
   }
 }
 

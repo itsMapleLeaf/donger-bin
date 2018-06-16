@@ -7,16 +7,20 @@ import { hoverReveal } from "../ui/hoverReveal"
 
 export interface DongerProps {
   donger: DongerData
+  onClick: (donger: DongerData) => void
   onContextMenu: (donger: DongerData) => void
 }
 
 export class Donger extends React.Component<DongerProps> {
   render() {
-    const { donger } = this.props
+    const { donger, onClick, onContextMenu } = this.props
     return (
-      <Anchor href="#" onContextMenu={() => this.props.onContextMenu(donger)}>
-        {donger.body}
-      </Anchor>
+      <Anchor
+        href="#"
+        onClick={() => onClick(donger)}
+        onContextMenu={() => onContextMenu(donger)}
+        children={donger.body}
+      />
     )
   }
 }
