@@ -1,5 +1,6 @@
 import { Formik, FormikProps } from "formik"
 import React from "react"
+import { linkFormikField } from "../formik/helpers"
 import { Button } from "../ui/Button"
 import { TextInput } from "../ui/TextInput"
 
@@ -29,11 +30,9 @@ export class DongerForm extends React.Component<DongerFormProps> {
   renderForm = (props: FormikProps<DongerFormValues>) => (
     <form onSubmit={props.handleSubmit} style={{ display: "flex" }}>
       <TextInput
-        name="body"
         placeholder="Add new donger? (´・◡ ・｀)"
         style={{ width: "270px", marginRight: "0.5rem" }}
-        value={props.values.body}
-        onChange={props.handleChange}
+        {...linkFormikField(props, "body")}
       />
       <Button>Add</Button>
     </form>
