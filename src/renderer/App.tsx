@@ -44,6 +44,8 @@ const DongerList = styled("section")`
   > * {
     margin: 0.5rem;
   }
+
+  overflow-x: hidden;
 `
 
 const AppActionSection = styled("section")`
