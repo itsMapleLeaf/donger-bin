@@ -10,7 +10,7 @@
     "start": "electron .",
     "dev:watch": "tsc -w",
     "dev:start": "electron . --dev",
-    "dev": "run-p dev:* --race",
+    "dev": "npm run compile && run-p dev:* --race",
     "build": "npm run compile && electron-builder"
   },
   "dependencies": {
