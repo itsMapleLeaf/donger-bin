@@ -53,22 +53,23 @@ function initDevMode(win: BrowserWindow) {
   watch(resolve(__dirname, "./renderer"), { recursive: true }, reloadWindow)
 }
 
-let win
-let tray
+function main() {
+  let win
+  let tray
 
-function ready() {
-  win = createWindow()
-  tray = createTray(win)
+  app.on("ready", () => {
+    win = createWindow()
+    tray = createTray(win)
 
-  if (isDevMode) {
-    initDevMode(win)
-  }
+    if (isDevMode) {
+      initDevMode(win)
+    }
+  })
+
+  app.on("will-quit", () => {
+    win = null
+    tray = null
+  })
 }
 
-function cleanup() {
-  win = null
-  tray = null
-}
-
-app.on("ready", ready)
-app.on("will-quit", cleanup)
+main()
