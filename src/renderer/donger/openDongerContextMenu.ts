@@ -1,17 +1,15 @@
 import { remote } from "electron"
 
-const { Menu } = remote.require("electron") as typeof import("electron")
+const { Menu } = remote.require("electron") as typeof Electron
 
-type DongerMenuResult = "delete" | undefined
+interface DongerMenuOptions {
+  onDelete: () => void
+}
 
-export function openDongerContextMenu(): Promise<DongerMenuResult> {
-  return new Promise((resolve) => {
-    const menu = Menu.buildFromTemplate([
-      { label: "Delete", click: () => resolve("delete") },
-    ])
+export function openDongerContextMenu(opts: DongerMenuOptions) {
+  const menu = Menu.buildFromTemplate([
+    { label: "Delete", click: () => opts.onDelete() },
+  ])
 
-    menu.popup({
-      callback: () => resolve(),
-    })
-  })
+  menu.popup({})
 }

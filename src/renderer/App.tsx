@@ -57,10 +57,9 @@ export class App extends React.Component<{}, AppState> {
   }
 
   openDongerContextMenu = async (donger: DongerData) => {
-    const result = await openDongerContextMenu()
-    if (result === "delete") {
-      this.removeDonger(donger)
-    }
+    openDongerContextMenu({
+      onDelete: () => this.removeDonger(donger),
+    })
   }
 
   renderDonger = (donger: DongerData) => (
