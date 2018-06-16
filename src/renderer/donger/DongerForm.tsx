@@ -13,8 +13,7 @@ export interface DongerFormProps {
 }
 
 export class DongerForm extends React.Component<DongerFormProps> {
-  // TODO: consider using new react refs
-  form: Formik<{}, DongerFormValues> | null = null
+  form = React.createRef<Formik<{}, DongerFormValues>>()
 
   render() {
     return (
@@ -22,7 +21,7 @@ export class DongerForm extends React.Component<DongerFormProps> {
         initialValues={{ body: "" }}
         onSubmit={this.handleSubmit}
         render={this.renderForm}
-        ref={(form) => (this.form = form)}
+        ref={this.form}
       />
     )
   }
@@ -45,9 +44,10 @@ export class DongerForm extends React.Component<DongerFormProps> {
       return
     }
 
-    this.props.onSubmit({ body })
-    if (this.form) {
-      this.form.setFieldValue("body", "")
+    if (this.form.current) {
+      this.form.current.setFieldValue("body", "")
     }
+
+    this.props.onSubmit({ body })
   }
 }
