@@ -46,7 +46,7 @@ function createTray(win: BrowserWindow) {
   return tray
 }
 
-function initDevMode(win: BrowserWindow) {
+function runWatchReload(win: BrowserWindow) {
   win.webContents.openDevTools()
   const reloadWindow = win.webContents.reload.bind(win.webContents)
   watch(resolve(__dirname, "../assets"), { recursive: true }, reloadWindow)
@@ -62,7 +62,7 @@ function main() {
     tray = createTray(win)
 
     if (isDevMode) {
-      initDevMode(win)
+      runWatchReload(win)
     }
   })
 
