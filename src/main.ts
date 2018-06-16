@@ -1,4 +1,4 @@
-import { app, BrowserWindow, Menu, screen, Tray } from "electron"
+import { app, BrowserWindow, ipcMain, Menu, screen, Tray } from "electron"
 import { watch } from "fs"
 import { resolve } from "path"
 
@@ -61,6 +61,15 @@ function ready() {
   if (isDevMode) {
     initDevMode(win)
   }
+
+  ipcMain.on("donger-context-menu", (event: Electron.Event, arg: any) => {
+    const dongerMenu = Menu.buildFromTemplate([
+      { label: "Edit" },
+      { label: "Delete" },
+    ])
+
+    dongerMenu.popup({})
+  })
 }
 
 app.on("ready", ready)

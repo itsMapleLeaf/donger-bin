@@ -47,6 +47,10 @@
   version "0.6.3"
   resolved "https://registry.npmjs.org/@emotion/unitless/-/unitless-0.6.3.tgz#65682e68a82701c70eefb38d7f941a2c0bfa90de"
 
+"@mdi/font@^2.4.85":
+  version "2.4.85"
+  resolved "https://registry.npmjs.org/@mdi/font/-/font-2.4.85.tgz#f257a2c3ed1dec3023f2dc12cd9210fab572ab42"
+
 "@types/node@*":
   version "10.3.3"
   resolved "https://registry.npmjs.org/@types/node/-/node-10.3.3.tgz#8798d9e39af2fa604f715ee6a6b19796528e46c3"

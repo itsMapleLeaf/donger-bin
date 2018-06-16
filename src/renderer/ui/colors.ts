@@ -1,4 +1,5 @@
-export const themeColor = "rgb(44, 62, 80)"
+export const themeColorAlt = "rgb(99, 110, 114)"
+export const themeColor = "rgb(45, 52, 54)"
 export const textColor = "rgb(236, 240, 241)"
 export const successColor = "rgb(33, 145, 80)"
 export const dangerColor = "rgb(231, 76, 60)"

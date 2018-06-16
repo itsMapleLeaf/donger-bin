@@ -11,6 +11,7 @@
     "dev": "run-p dev:* --race"
   },
   "dependencies": {
+    "@mdi/font": "^2.4.85",
     "emotion": "^9.2.3",
     "polished": "^1.9.2",
     "prop-types": "^15.6.1",

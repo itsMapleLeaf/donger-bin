@@ -38,5 +38,9 @@ export function applyGlobalStyles() {
       font-family: "Roboto Condensed", sans-serif;
       font-weight: 300;
     }
+
+    ul, li {
+      list-style: none;
+    }
   `
 }
