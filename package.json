@@ -8,7 +8,7 @@
   "scripts": {
     "build": "cross-env NODE_ENV=production webpack --require ts-node/register",
     "start": "electron .",
-    "dist": "npm run compile && electron-builder",
+    "dist": "npm run build && electron-builder",
     "dev:webpack": "webpack --require ts-node/register --watch",
     "dev:nodemon": "nodemon . --dev -x electron -e js,html -w build -w assets",
     "dev": "run-p dev:* --race"

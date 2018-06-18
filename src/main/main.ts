@@ -4,7 +4,7 @@ import { resolve } from "path"
 const isDevMode = process.argv.includes("--dev")
 
 function getAssetPath(filename: string) {
-  return resolve(__dirname, "../../assets", filename)
+  return resolve(__dirname, "../assets", filename)
 }
 
 function createWindow() {

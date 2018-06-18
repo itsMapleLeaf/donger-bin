@@ -28,8 +28,8 @@ const baseConfig: Configuration = {
     extensions: [".ts", ".tsx", ".js"],
   },
   node: {
-    __dirname: true,
-    __filename: true,
+    __dirname: false,
+    __filename: false,
   },
   mode: process.env.NODE_ENV === "production" ? "production" : "none",
 }
