@@ -22,7 +22,13 @@ const baseConfig: Configuration = {
     path: buildFolder,
   },
   module: {
-    rules: [{ test: /\.tsx?$/, use: [tsLoader] }],
+    rules: [
+      {
+        test: /\.tsx?$/,
+        use: [tsLoader],
+        include: [sourceFolder],
+      },
+    ],
   },
   resolve: {
     extensions: [".ts", ".tsx", ".js"],
