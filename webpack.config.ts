@@ -1,5 +1,5 @@
 import { resolve } from "path"
-import { Configuration } from "webpack"
+import { Configuration, Loader } from "webpack"
 import merge from "webpack-merge"
 
 const projectRoot = __dirname
@@ -7,7 +7,7 @@ const projectRoot = __dirname
 const sourceFolder = resolve(projectRoot, "src")
 const buildFolder = resolve(projectRoot, "build")
 
-const tsLoader = {
+const tsLoader: Loader = {
   loader: "ts-loader",
   options: {
     compilerOptions: {
