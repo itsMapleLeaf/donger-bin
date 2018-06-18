@@ -1,4 +1,3 @@
 - when typing, focus the input
 - when pasting, put the pasted content into the input
-- bundle to speed up initial load
 - keyboard shortcut
