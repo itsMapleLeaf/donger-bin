@@ -1,13 +1,10 @@
 import { app, BrowserWindow, Menu, nativeImage, screen, Tray } from "electron"
-import { watch } from "fs"
 import { resolve } from "path"
 
 const isDevMode = process.argv.includes("--dev")
 
-process.env.NODE_ENV = isDevMode ? "development" : "production"
-
 function getAssetPath(filename: string) {
-  return resolve(__dirname, "../assets", filename)
+  return resolve(__dirname, "../../assets", filename)
 }
 
 function createWindow() {
@@ -47,24 +44,13 @@ function createTray(win: BrowserWindow) {
   return tray
 }
 
-function runWatchReload(win: BrowserWindow) {
-  win.webContents.openDevTools()
-  const reloadWindow = win.webContents.reload.bind(win.webContents)
-  watch(resolve(__dirname, "../assets"), { recursive: true }, reloadWindow)
-  watch(resolve(__dirname, "./renderer"), { recursive: true }, reloadWindow)
-}
-
 function main() {
-  let win
-  let tray
+  let win: BrowserWindow | null
+  let tray: Tray | null
 
   app.on("ready", () => {
     win = createWindow()
     tray = createTray(win)
-
-    if (isDevMode) {
-      runWatchReload(win)
-    }
   })
 
   app.on("will-quit", () => {

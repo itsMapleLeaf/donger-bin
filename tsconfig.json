@@ -5,17 +5,15 @@
     "lib": ["dom", "es2018"],
     "module": "commonjs",
     "moduleResolution": "node",
-    "outDir": "build",
     "plugins": [
       {
         "name": "typescript-styled-plugin",
         "tags": ["styled", "css", "keyframes", "injectGlobal"]
       }
     ],
-    "rootDir": "src",
     "skipLibCheck": true,
     "strict": true,
     "target": "es2018"
   },
-  "include": ["src/**/*"]
+  "include": ["src/**/*", "webpack.config.ts"]
 }
