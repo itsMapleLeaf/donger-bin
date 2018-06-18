@@ -11,8 +11,8 @@ export class Storage<D> {
 
   async load(): Promise<D> {
     try {
-      const buffer = await readFilePromise(this.savePath)
-      return JSON.parse(buffer.toString())
+      const content = await readFilePromise(this.savePath, "utf8")
+      return JSON.parse(content)
     } catch {
       return this.defaultValue
     }
