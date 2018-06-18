@@ -1,6 +1,6 @@
 import { resolve } from "path"
+import { Storage } from "../fs/Storage"
 import { DongerData } from "./DongerData"
-import { Storage } from "./storage"
 
 const userFolder =
   process.env.APPDATA ||

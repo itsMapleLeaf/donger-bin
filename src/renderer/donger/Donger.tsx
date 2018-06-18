@@ -1,7 +1,7 @@
 import { darken } from "polished"
 import React from "react"
 import styled from "react-emotion"
-import { DongerData } from "../../DongerData"
+import { DongerData } from "../../common/donger/DongerData"
 import { themeColor } from "../ui/colors"
 import { hoverReveal } from "../ui/hoverReveal"
 
