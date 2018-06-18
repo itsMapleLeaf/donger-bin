@@ -7,12 +7,22 @@ const projectRoot = __dirname
 const sourceFolder = resolve(projectRoot, "src")
 const buildFolder = resolve(projectRoot, "build")
 
+const tsLoader = {
+  loader: "ts-loader",
+  options: {
+    compilerOptions: {
+      module: "esnext",
+      allowSyntheticDefaultImports: true,
+    },
+  },
+}
+
 const baseConfig: Configuration = {
   output: {
     path: buildFolder,
   },
   module: {
-    rules: [{ test: /\.tsx?$/, use: ["ts-loader"] }],
+    rules: [{ test: /\.tsx?$/, use: [tsLoader] }],
   },
   resolve: {
     extensions: [".ts", ".tsx", ".js"],
