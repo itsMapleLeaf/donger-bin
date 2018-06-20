@@ -5,7 +5,7 @@ import { getFrequency } from "../shared/array/helpers"
 import { DongerData } from "../shared/donger/DongerData"
 import { dongerStorage } from "../shared/donger/dongerStorage"
 import { Donger } from "./donger/Donger"
-import { DongerForm, DongerFormValues } from "./donger/DongerForm"
+import { DongerForm, DongerFormState } from "./donger/DongerForm"
 import { openDongerContextMenu } from "./donger/openDongerContextMenu"
 
 const headerMessage = "Choose your donger wisely ( ͡° ͜ʖ ͡°)"
@@ -55,7 +55,7 @@ export class App extends React.Component<{}, AppState> {
     )
   }
 
-  handleDongerSubmit = ({ body }: DongerFormValues) => {
+  handleDongerSubmit = ({ body }: DongerFormState) => {
     const id = String(Math.random())
     this.addDonger(new DongerData(id, body))
   }
