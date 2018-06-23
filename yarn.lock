@@ -1751,16 +1751,6 @@ form-data@~2.3.1:
     combined-stream "1.0.6"
     mime-types "^2.1.12"
 
-formik@^0.11.11:
-  version "0.11.11"
-  resolved "https://registry.npmjs.org/formik/-/formik-0.11.11.tgz#4b02838133c0196b1ef443aa973766cd097ec4a5"
-  dependencies:
-    lodash.clonedeep "^4.5.0"
-    lodash.isequal "4.5.0"
-    lodash.topath "4.5.2"
-    prop-types "^15.5.10"
-    warning "^3.0.0"
-
 fragment-cache@^0.2.1:
   version "0.2.1"
   resolved "https://registry.npmjs.org/fragment-cache/-/fragment-cache-0.2.1.tgz#4290fad27f13e89be7f33799c6bc5a0abfff0d19"
@@ -2497,18 +2487,6 @@ locate-path@^2.0.0:
   dependencies:
     p-locate "^2.0.0"
     path-exists "^3.0.0"
-
-lodash.clonedeep@^4.5.0:
-  version "4.5.0"
-  resolved "https://registry.npmjs.org/lodash.clonedeep/-/lodash.clonedeep-4.5.0.tgz#e23f3f9c4f8fbdde872529c1071857a086e5ccef"
-
-lodash.isequal@4.5.0:
-  version "4.5.0"
-  resolved "https://registry.npmjs.org/lodash.isequal/-/lodash.isequal-4.5.0.tgz#415c4478f2bcc30120c22ce10ed3226f7d3e18e0"
-
-lodash.topath@4.5.2:
-  version "4.5.2"
-  resolved "https://registry.npmjs.org/lodash.topath/-/lodash.topath-4.5.2.tgz#3616351f3bba61994a0931989660bd03254fd009"
 
 lodash@^4.17.5, lodash@^4.2.0:
   version "4.17.10"
@@ -3326,7 +3304,7 @@ promise@^7.1.1:
   dependencies:
     asap "~2.0.3"
 
-prop-types@^15.5.10, prop-types@^15.6.0, prop-types@^15.6.1:
+prop-types@^15.6.0, prop-types@^15.6.1:
   version "15.6.1"
   resolved "https://registry.npmjs.org/prop-types/-/prop-types-15.6.1.tgz#36644453564255ddda391191fb3a125cbdf654ca"
   dependencies:
@@ -4242,9 +4220,9 @@ typescript-template-language-service-decorator@^1.2.0:
   version "1.2.0"
   resolved "https://registry.npmjs.org/typescript-template-language-service-decorator/-/typescript-template-language-service-decorator-1.2.0.tgz#6d5b20b2b0f394a055390d901a4c5f273e3754ab"
 
-typescript@^2.9.1:
-  version "2.9.2"
-  resolved "https://registry.npmjs.org/typescript/-/typescript-2.9.2.tgz#1cbf61d05d6b96269244eb6a3bce4bd914e0f00c"
+typescript@^3.0.0-dev.20180622:
+  version "3.0.0-dev.20180622"
+  resolved "https://registry.npmjs.org/typescript/-/typescript-3.0.0-dev.20180622.tgz#16cb2d9cd90cda892810439f75b0b92762b8e745"
 
 ua-parser-js@^0.7.18:
   version "0.7.18"
@@ -4437,12 +4415,6 @@ vscode-languageserver-types@^3.6.0-next.1, vscode-languageserver-types@^3.6.1:
 vscode-nls@^3.2.1:
   version "3.2.2"
   resolved "https://registry.npmjs.org/vscode-nls/-/vscode-nls-3.2.2.tgz#3817eca5b985c2393de325197cf4e15eb2aa5350"
-
-warning@^3.0.0:
-  version "3.0.0"
-  resolved "https://registry.npmjs.org/warning/-/warning-3.0.0.tgz#32e5377cb572de4ab04753bdf8821c01ed605b7c"
-  dependencies:
-    loose-envify "^1.0.0"
 
 watchpack@^1.5.0:
   version "1.6.0"
